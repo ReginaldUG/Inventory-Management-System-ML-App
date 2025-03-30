@@ -1,0 +1,68 @@
+import React from 'react'
+import { useState, useEffect } from 'react';
+import {Button, Card, Flex, Table, Typography} from 'antd'
+import {BiRightArrowAlt, BiShareAlt} from 'react-icons/bi'
+
+const {Title} = Typography
+const TableCard = () => {
+
+    const [predictions, setPredictions] = useState([])
+    
+    useEffect(() => {
+        fetchPredictions()  
+    }, []);
+
+    const fetchPredictions = async () => {
+        try{
+            const response = await fetch("http://127.0.0.1:5000/predictions")
+            const data = await response.json()
+            setPredictions(data.salespredictions || [])
+        } catch(error){
+            console.error("Error fetching predictions:", error)
+        }
+    }
+
+    const columns = [
+        {
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
+        },
+        {
+           title: 'Article',
+           dataIndex: 'article',
+           key: 'article',
+        },
+        {
+           title: 'Quantity',
+           dataIndex: 'quantity',
+           key: 'quantity',
+        }
+    ]
+
+    const tableData = predictions.map((prediction, index) => ({
+        key: index,
+        date: prediction.date,
+        article: prediction.article,
+        quantity: prediction.quantity
+    }))
+
+  return (
+    <div style={{margin: '20px 0'}}>
+      <Card>
+        <Flex justify='space-between' align='center'>
+            <Title level={3} strong>
+                Sales Predictions
+            </Title>
+
+            <Button type='primary' style={{display: 'flex', alignItems: 'center'}}>
+                <BiRightArrowAlt className='icons'/>
+            </Button>
+        </Flex>
+        <Table columns={columns} dataSource={tableData} style={{marginTop: 10}} pagination={tableData.length>4 ? {pageSize: 4} : false}/>
+      </Card>
+    </div>
+  )
+}
+
+export default TableCard
