@@ -43,11 +43,11 @@ def get_best_sellers():
     latest_date = db.session.query(func.max(Sales.date)).scalar()
 
     if not latest_date:
-        return jsonify({"best_sellers": []})  # No data available
+        return jsonify({"bestsellers": []})  # No data available
 
     last_14_days = latest_date - timedelta(days=7)
 
-    best_sellers = (
+    bestsellers = (
         db.session.query(
             Sales.article,
             func.sum(Sales.quantity).label("total_quantity")
@@ -59,8 +59,8 @@ def get_best_sellers():
         .all()
     )
 
-    results = [{"article": row.article, "total_quantity": row.total_quantity} for row in best_sellers]
-    return jsonify({"best_sellers": results})
+    results = [{"article": row.article, "total_quantity": row.total_quantity} for row in bestsellers]
+    return jsonify({"bestsellers": results})
 
 if __name__ == "__main__":
     with app.app_context():

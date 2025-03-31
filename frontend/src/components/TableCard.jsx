@@ -49,9 +49,9 @@ const TableCard = () => {
 
   return (
     <div style={{margin: '20px 0'}}>
-      <Card>
+      <Card style={{padding: '20px'}}>
         <Flex justify='space-between' align='center'>
-            <Title level={3} strong>
+            <Title level={4} >
                 Sales Predictions
             </Title>
 

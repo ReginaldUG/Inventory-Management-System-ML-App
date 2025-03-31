@@ -7,7 +7,7 @@ const CustomHeader = () => {
   return (
     <Flex align='center' justify='space-between'>
         <Typography.Title level={3} type='secondary'>
-            Welcome
+            Inventory Management
         </Typography.Title>
         <Flex align='center' gap="3rem">
             <Search placeholder='Search Dashboard' allowClear/>
