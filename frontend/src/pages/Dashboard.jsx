@@ -1,11 +1,14 @@
-import TableCard from "../components/TableCard";
+import { Flex } from "antd";
+import MainContent from "../components/MainContent";
+import SideContent from "../components/SideContent";
 
 const Dashboard = () => {
     return(
-        <div>
-            <h1>Dashboard</h1>
-            <TableCard/>
-        </div>
+        <Flex gap='large'>       
+            <MainContent/>
+            <SideContent/>
+            
+        </Flex>
         
     )
 }

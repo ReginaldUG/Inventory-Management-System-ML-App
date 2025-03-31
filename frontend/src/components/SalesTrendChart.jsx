@@ -1,0 +1,94 @@
+import { Card, Flex, Select, Typography } from 'antd'
+import React, { useEffect, useState } from 'react'
+import {Line} from 'react-chartjs-2'
+import {
+    Chart as ChartJS,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    plugins,
+    Legend,
+    scales
+} from 'chart.js'
+
+ChartJS.register(
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement
+)
+
+const SalesTrendChart = () => {
+    const [selectedTrend, setSelectedTrend] = useState('daily')
+    const [trends, setTrends] = useState([])
+
+    useEffect(() => {
+        fetchTrends(selectedTrend)
+    }, [selectedTrend])
+
+    const fetchTrends = async (trendType) =>{
+        try{
+            const response = await fetch(`http://127.0.0.1:5000/sales/${trendType}`)
+            const data = await response.json()
+            setTrends(data.salestrends || [])
+        } catch (error){
+            console.error("Error fetching sales trends:", error)
+        }
+    }
+
+    const linedata = {
+        labels: trends.map(item => item.date),
+        datasets:[{
+            label: "Last 7 days",
+            data: trends.map(item => Number(item.total_sales)),
+            backgroundColor: 'transparent',
+            borderColor: '#22D3EE',
+            pointBorderColor: 'transparent',
+            pointBorderWidth: 4,
+            tension: 0.5
+        }]
+    }
+    const options = {
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                grid: { display: false }
+            },
+            y: {
+                suggestedMin: Math.min(...trends.map(item => Number(item.total_sales))) - 10,
+                suggestedMax: Math.max(...trends.map(item => Number(item.total_sales))) + 10,
+                ticks: {
+                    stepSize: 50,  
+                    callback: (value) => value.toFixed(0)  // Ensure whole numbers
+                },
+                grid: {
+                    borderDash: [10]
+                }
+            }
+        }
+    } 
+
+  return (
+    <Card>
+        <Flex justify='space-between' align='center'>
+            <Typography.Title level={3}>
+                Trends
+            </Typography.Title>
+
+            <Select defaultValue='daily' style={{width: 120}} onChange={setSelectedTrend} options={[
+                {value: 'daily', label: 'Daily'},
+                {value: 'weekly', label: 'Weekly'}
+            ]}
+            />
+
+        </Flex>
+        <Line data={linedata} options={options}></Line>
+        
+    </Card>
+  )
+}
+
+export default SalesTrendChart
