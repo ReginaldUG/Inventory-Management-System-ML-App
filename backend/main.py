@@ -2,7 +2,11 @@ from config import app, db
 from flask import jsonify
 from models import Prediction, Sales
 from sqlalchemy import func
-from datetime import datetime, timedelta
+from datetime import timedelta
+
+@app.route("/")
+def index():
+    return jsonify(status=200, message='OK')
 
 #   Creating the route to retreive the predictions
 @app.route("/predictions", methods=["GET"])
@@ -12,19 +16,19 @@ def get_predictions():
     return jsonify({"salespredictions": json_pred})
 
 @app.route("/sales/daily", methods=["GET"])
-def get_last_14_days_sales():
+def get_last_7_days_sales():
 
     # Get latest date in the Sales table
     latest_date = db.session.query(func.max(Sales.date)).scalar()
 
-    last_14_days = latest_date - timedelta(days=7)
+    last_7_days = latest_date - timedelta(days=7)
 
     salestrends = (
         db.session.query(
             Sales.date, 
             func.sum(Sales.quantity).label("total_sales")
         )
-        .filter(Sales.date >= last_14_days) 
+        .filter(Sales.date >= last_7_days) 
         .group_by(Sales.date)
         .order_by(Sales.date)
         .all()
@@ -45,14 +49,14 @@ def get_best_sellers():
     if not latest_date:
         return jsonify({"bestsellers": []})  # No data available
 
-    last_14_days = latest_date - timedelta(days=7)
+    last_7_days = latest_date - timedelta(days=7)
 
     bestsellers = (
         db.session.query(
             Sales.article,
             func.sum(Sales.quantity).label("total_quantity")
         )
-        .filter(Sales.date >= last_14_days)
+        .filter(Sales.date >= last_7_days)
         .group_by(Sales.article)
         .order_by(func.sum(Sales.quantity).desc())
         .limit(5)

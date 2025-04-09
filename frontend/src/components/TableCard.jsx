@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import {Button, Card, Flex, Table, Typography} from 'antd'
 import {BiRightArrowAlt, BiShareAlt} from 'react-icons/bi'
+import { API_URL } from '../config';
 
 const {Title} = Typography
 const TableCard = () => {
@@ -14,7 +15,7 @@ const TableCard = () => {
 
     const fetchPredictions = async () => {
         try{
-            const response = await fetch("http://127.0.0.1:5000/predictions")
+            const response = await fetch(`${API_URL}/predictions`)
             const data = await response.json()
             setPredictions(data.salespredictions || [])
         } catch(error){

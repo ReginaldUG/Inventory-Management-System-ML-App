@@ -1,4 +1,5 @@
 import { Card, Carousel, Flex, Typography } from 'antd'
+import { API_URL } from '../config'
 import React, { useEffect, useState } from 'react'
 
 
@@ -12,11 +13,11 @@ const ContentSidebar = () => {
       
     const fetchBestSellers = async () => {
         try{
-            const response = await fetch("http://127.0.0.1:5000/sales/best-sellers")
+            const response = await fetch(`${API_URL}/sales/best-sellers`)
             const data = await response.json()
             setBestSellers(data.bestsellers || [])
         } catch(error){
-            console.error("Error fetching predictions:", error)
+            console.error("Error fetching best sellers:", error)
         }
     }
 

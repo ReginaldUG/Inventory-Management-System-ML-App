@@ -2,6 +2,7 @@ import { Card, Flex, Select, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import {Line} from 'react-chartjs-2'
 import { Chart as ChartJS, defaults } from 'chart.js/auto' 
+import { API_URL } from '../config'
 
 const SalesTrendChart = () => {
     const [selectedTrend, setSelectedTrend] = useState('daily')
@@ -13,7 +14,7 @@ const SalesTrendChart = () => {
 
     const fetchTrends = async (trendType) =>{
         try{
-            const response = await fetch(`http://127.0.0.1:5000/sales/${trendType}`)
+            const response = await fetch(`${API_URL}/sales/${trendType}`)
             const data = await response.json()
             setTrends(data.salestrends || [])
         } catch (error){
