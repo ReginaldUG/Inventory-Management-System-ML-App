@@ -8,12 +8,12 @@ The repository contains the frontend dashboard code and the Flask API backend us
 ##  System Architecture:
 
 
-`![Architecture Diagram](image.png)`
+![Architecture Diagram](image.png)
 
 
 ##  Flask API Architecture:
 
-`![Flask API Architecture](https://github.com/user-attachments/assets/ce5739ca-6937-4ff8-94dd-f5cbecc9df67)`
+![Flask API Architecture](https://github.com/user-attachments/assets/ce5739ca-6937-4ff8-94dd-f5cbecc9df67)
 
 
 ##  Here's how the system fits together:
