@@ -18,7 +18,7 @@ The repository contains the frontend dashboard code and the Flask API backend us
 ##  Here's how the system fits together:
 1. Predictive Model runs on a local device and generates CSV prediction files
 2. CSVs are uploaded to an AWS S3 bucket (acting as a staging area)
-3. Upload to S3 trggers a Lambda function to insert predictions into AWS RDS NoSql database.
+3. Upload to S3 triggers a Lambda function to insert predictions into AWS RDS NoSql database.
 4. Flask API (hosted on AWS Lambda via API Gateway) retrieves prediction data.
 5. Frontend Dashboard uses this API to fetch and present data to users.
 
