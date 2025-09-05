@@ -24,6 +24,8 @@ The repository contains the frontend dashboard code and the Flask API backend us
 
 ## DEMO VIDEO
 * Short Demo - [![Google Drive](https://img.shields.io/badge/Google%20Drive-Download-blue?logo=googledrive)](https://drive.google.com/file/d/11qtuy2ihZ3UqCfTa2libbMw2bvNhJ41W/view?usp=drive_link)
+  
+* Full Overview - [![Google Drive](https://img.shields.io/badge/Google%20Drive-Download-blue?logo=googledrive)](https://drive.google.com/file/d/1LssFO0nP6a3JRkufC_3JOWHCYYlRo60T/view?usp=drive_link)
 
 
 **This repository includes:**
