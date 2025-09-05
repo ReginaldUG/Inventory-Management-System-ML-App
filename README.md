@@ -22,6 +22,9 @@ The repository contains the frontend dashboard code and the Flask API backend us
 4. Flask API (hosted on AWS Lambda via API Gateway) retrieves prediction data.
 5. Frontend Dashboard uses this API to fetch and present data to users.
 
+## DEMO VIDEO
+* Short Demo - [![Google Drive](https://img.shields.io/badge/Google%20Drive-Download-blue?logo=googledrive)](https://drive.google.com/file/d/your_file_id/view?usp=sharing)
+
 
 **This repository includes:**
 * Frontend Dashboard React Application Code to visualize predictions
